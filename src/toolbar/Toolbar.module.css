@@ -1,0 +1,36 @@
+.toolbar{
+    display: flex;
+    align-items: center;
+    padding:1%;
+    width:70%;
+    position: sticky;
+    top: 0;
+    background-color: white;
+}
+
+.modal {
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    width: 30%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inner_modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-width:2px;
+    margin: 5% 0 2%;
+    height:90%;
+    width:80%;
+}
+
+.text{
+    width:90%;
+    max-height: 50%;
+}

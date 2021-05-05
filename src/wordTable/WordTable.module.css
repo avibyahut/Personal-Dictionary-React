@@ -1,0 +1,29 @@
+.table {
+    width: 70% !important;
+}
+
+.table * {
+    font-size: 1em !important;
+    font-weight: 550 !important;
+}
+
+.cell_head {
+    background-color: black;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.row_body:nth-child(odd) {
+    background-color: #80808054;
+}
+
+.action {
+    display: flex;
+    justify-content: space-evenly;
+    border: none;
+    font-size: 1.2em !important;
+}
+
+.multiline {
+    white-space: pre-wrap;
+}
