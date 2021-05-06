@@ -24,7 +24,7 @@ export function useTheme() {
 
 const editWord = async (value, update = false) => {
     if (value === "") {
-        return { word: value, definition: "", modalOpen: true, update: update }
+        return { word: value, definition: [], modalOpen: true, update: update }
     }
 
     const res = await getFetch(
@@ -34,7 +34,7 @@ const editWord = async (value, update = false) => {
     )
 
     if (res.length === 0)
-        return { word: value, definition: "", modalOpen: true, update: update }
+        return { word: value, definition: [], modalOpen: true, update: update }
     else return { ...res[0], modalOpen: true, update: update }
 }
 
@@ -43,11 +43,16 @@ function reducer(state, action) {
         case "setOpen":
             return { ...state, modalOpen: true }
         case "setClose":
-            return { modalOpen: false, word: "", definition: "" }
+            return { modalOpen: false, word: "", definition: [] }
         case "edit":
             return action.payload
-        case "updateDefinition":
-            return { ...state, definition: action.payload }
+        case "addDefinition":
+            const addDefinition = [...state.definition, action.payload]
+            return { ...state, definition: addDefinition }
+        case "deleteDefinition":
+            const removeDefinition = [...state.definition]
+            removeDefinition.splice(action.payload, 1)
+            return { ...state, definition: removeDefinition }
         default:
             return state
     }
@@ -81,7 +86,7 @@ export default function Provider({ children }) {
 
     const initialState = {
         word: "",
-        definition: "",
+        definition: [],
         modalOpen: false,
     }
     const [update, dispatchUpdate] = useReducer(reducer, initialState)

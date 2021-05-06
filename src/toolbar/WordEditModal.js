@@ -5,6 +5,7 @@ import postFetch from "../helperFunctions/Fetch"
 import lightStyles from "./Toolbar.module.css"
 import darkStyles from "./DarkToolbar.module.css"
 import { Button, Card, TextField } from "@material-ui/core"
+import ChipsDisplay from "./ChipsDisplay"
 
 export default function WordEditModal() {
     const [update, dispatchUpdate] = useUpdate()
@@ -13,16 +14,12 @@ export default function WordEditModal() {
     const [darkTheme] = useTheme()
     const styles = darkTheme ? darkStyles : lightStyles
 
-    const define = useRef()
     const word = useRef()
 
     useEffect(() => {
         if (update.update) {
             if (word.current) word.current.value = update.word
         }
-
-        if (define.current && word.current.value === update.word)
-            define.current.value = update.definition
     }, [update])
 
     const handleUpdate = () => {
@@ -57,21 +54,22 @@ export default function WordEditModal() {
                     }
                     inputRef={word}
                 />
+                <ChipsDisplay></ChipsDisplay>
                 <TextField
-                    multiline
                     className={styles.text}
                     label="Definition"
                     name="definition"
                     id="definition"
-                    inputRef={define}
-                    rowsMax={6}
                     InputLabelProps={{ shrink: true }}
-                    onChange={(e) =>
-                        dispatchUpdate({
-                            type: "updateDefinition",
-                            payload: e.target.value,
-                        })
-                    }
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            dispatchUpdate({
+                                type: "addDefinition",
+                                payload: e.target.value,
+                            })
+                            e.target.value = ""
+                        }
+                    }}
                 ></TextField>
                 <Button
                     variant={darkTheme ? "contained" : "outlined"}
@@ -79,7 +77,7 @@ export default function WordEditModal() {
                     disabled={
                         loading ||
                         update.word === "" ||
-                        update.definition === ""
+                        update.definition.length === 0
                     }
                     onClick={handleUpdate}
                 >

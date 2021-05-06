@@ -48,8 +48,12 @@ export default function WordTable() {
                     return (
                         <TableRow className={styles.row_body} key={word.word}>
                             <TableCell>{word.word}</TableCell>
-                            <TableCell className={styles.multiline}>
-                                {word.definition}
+                            <TableCell>
+                                <ul>
+                                    {word.definition.map((def, idx) => {
+                                        return <li key={idx}>{def}</li>
+                                    })}
+                                </ul>
                             </TableCell>
                             <TableCell>
                                 <div className={styles.action}>
