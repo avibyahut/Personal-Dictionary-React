@@ -35,3 +35,11 @@
 .multiline {
     white-space: pre-wrap;
 }
+
+.action_cell {
+    width: 20%;
+}
+
+.word_cell {
+    width: 30%;
+}

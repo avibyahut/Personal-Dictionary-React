@@ -53,6 +53,17 @@ function reducer(state, action) {
             const removeDefinition = [...state.definition]
             removeDefinition.splice(action.payload, 1)
             return { ...state, definition: removeDefinition }
+        case "shuffleDefinition":
+            if (action.payload.dragIndex < 0) return state
+            const dragIndex = action.payload.dragIndex
+            const insertIndex =
+                action.payload.insertIndex -
+                (action.payload.insertIndex > dragIndex)
+            const definition = [...state.definition]
+            const shiftData = definition[dragIndex]
+            definition.splice(dragIndex, 1)
+            definition.splice(insertIndex, 0, shiftData)
+            return { ...state, definition: definition }
         default:
             return state
     }

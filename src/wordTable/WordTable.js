@@ -32,10 +32,8 @@ export default function WordTable() {
         <Table className={styles.table}>
             <TableHead>
                 <TableRow>
-                    <TableCell className={styles.cell_head} align="center">
-                        Word
-                    </TableCell>
-                    <TableCell className={styles.cell_head} align="center">
+                    <TableCell className={styles.cell_head}>Word</TableCell>
+                    <TableCell className={styles.cell_head}>
                         Definition
                     </TableCell>
                     <TableCell className={styles.cell_head} align="center">
@@ -47,15 +45,17 @@ export default function WordTable() {
                 {dict.dict.map((word) => {
                     return (
                         <TableRow className={styles.row_body} key={word.word}>
-                            <TableCell>{word.word}</TableCell>
-                            <TableCell>
+                            <TableCell className={styles.word_cell}>
+                                {word.word}
+                            </TableCell>
+                            <TableCell className={styles.definition_cell}>
                                 <ul>
                                     {word.definition.map((def, idx) => {
                                         return <li key={idx}>{def}</li>
                                     })}
                                 </ul>
                             </TableCell>
-                            <TableCell>
+                            <TableCell className={styles.action_cell}>
                                 <div className={styles.action}>
                                     <FontAwesomeIcon
                                         icon={faEdit}
